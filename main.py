@@ -17,6 +17,8 @@ from jinja2 import Template
 from weasyprint import HTML
 from flask_cors import CORS
 
+from application.models import User, Post, Comment, Follower, Likes
+
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
@@ -27,35 +29,16 @@ def create_app():
     celery = workers.celery
     celery.conf.update(
         broker_url = app.config["CELERY_BROKER_URL"],
-        result_backend = app.config["CELERY_RESULT_BACKEND"]
+        result_backend = app.config["CELERY_RESULT_BACKEND"],
+        timezone = app.config['CELERY_TIMEZONE'],
+        beat_schedule = app.config['CELERYBEAT_SCHEDULE'],
     )
     celery.Task = workers.ContextTask
     CORS(app)
     return app,api, celery
 
 app,api,celery = create_app()
-
-def send_email(to_address, subject, message):
-    msg = MIMEMultipart()
-    msg["From"] = app.config["SENDER_ADDRESS"]
-    msg["To"] = to_address
-    msg["Subject"] = subject
-
-    msg.attach(MIMEText(message, "html"))
-    s = smtplib.SMTP(host=app.config["SMTP_SERVER_HOST"], port=app.config["SMTP_SERVER_PORT"])
-    s.login(app.config["SENDER_ADDRESS"], app.config["SENDER_PASSWORD"])
-    s.send_message(msg)
-    s.quit()
-    return True
-
-def main():
-    new_users = [{"name": "Poppy", "email": "poppy@gmail.com"}]
-    for user in new_users:
-        with open("templates/welcome.html") as file_:
-            template =Template(file_.read())
-            message = template.render(data = user)
-        send_email(user["email"], subject="Welcome email", message=message)
-
+        
 from application.controllers import *
 
 from application.api import UserAPI
@@ -82,9 +65,20 @@ api.add_resource(LoginAPI, "/login")
 from application.api import LogoutAPI
 api.add_resource(LogoutAPI, "/logout")
 
+from application.api import FollowAPI
+api.add_resource(FollowAPI, "/follow","/follow/<string:username>")
+
+from application.api import FeedAPI
+api.add_resource(FeedAPI, "/feed")
+
+from application.api import LikeAPI
+api.add_resource(LikeAPI, "/like","/like/<string:username>","/like/<int:post_id>")
+
+from application.api import TrendingPosts
+api.add_resource(TrendingPosts, "/trending")
+
 
 if __name__=='__main__':
-    #main()
     app.run(
         host = '0.0.0.0',
         debug = True,

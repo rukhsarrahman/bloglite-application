@@ -6,6 +6,7 @@ import User from '../components/User.vue';
 import EditProfile from '../components/EditProfile.vue';
 import LoginProfile from '../components/Login.vue';
 import RegisterProfile from '../components/Register.vue';
+import SelfTimeline from '../components/SelfTimeline.vue';
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: RegisterProfile,
+    },
+    {
+      path: '/timeline/:username',
+      name: 'SelfTimeline',
+      component: SelfTimeline,
     },
   ],
 });

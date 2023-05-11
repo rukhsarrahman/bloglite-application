@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class ="Profile-details">
     <div>
       <b-navbar type="dark" variant="dark">
         <b-navbar-nav style="padding: 25px;">
@@ -17,54 +17,58 @@
         </b-navbar-nav>
       </b-navbar>
     </div>
-    <h5 style="padding-top: 5%; padding-left: 30%; padding-right: 30%;">Edit User Details</h5>
-    <form style="padding-top: 1%; padding-left: 30%; padding-right: 30%;">
-          <div class="form-group">
-            <h5>Name</h5>
-            <input
-            v-model="name"
-            type="text" class="form-control"
-            id="Name"
-            aria-label="Name">
-          </div>
-          <br>
-          <div class="form-group">
-            <h5>Bio</h5>
-            <input
-            v-model="bio"
-            type="text" class="form-control"
-            id="BIo"
-            aria-label="BIo">
-          </div>
-          <br>
-          <div class="form-group">
-            <h5>Email</h5>
-            <input
-            v-model="email"
-            type="email" class="form-control"
-            id="Email"
-            aria-label="Email">
-          </div>
-          <br><div class="form-group">
-            <h5>Password</h5>
-            <input
-            v-model="password"
-            type="password" class="form-control"
-            id="Password"
-            aria-label="Password">
-          </div>
-          <br>
-          <div class="form-group">
-            <h5>Profile Photo</h5>
-            <input type="file"
-            @change="getFileName"
-            class="form-control-file"
-            id="profile_photo_input"
-            aria-label="Post_Photo">
-          </div>
-          <br>
-          <button type="submit" class="btn btn-primary" @click="onSubmit">Submit</button>
-        </form>
+    <div class = "Edit-profile">
+      <form class = "Edit-form">
+        <h5 class ="header">Edit User Details</h5>
+            <div class="form-group">
+              <h5>Name</h5>
+              <input
+              v-model="name"
+              type="text" class="form-control"
+              id="Name"
+              aria-label="Name">
+            </div>
+            <br>
+            <div class="form-group">
+              <h5>Bio</h5>
+              <input
+              v-model="bio"
+              type="text" class="form-control"
+              id="BIo"
+              aria-label="BIo">
+            </div>
+            <br>
+            <div class="form-group">
+              <h5>Email</h5>
+              <input
+              v-model="email"
+              type="email" class="form-control"
+              id="Email"
+              aria-label="Email">
+            </div>
+            <br><div class="form-group">
+              <h5>Password</h5>
+              <input
+              v-model="password"
+              type="password" class="form-control"
+              id="Password"
+              aria-label="Password">
+            </div>
+            <br>
+            <div class="form-group">
+              <h5>Profile Photo</h5>
+              <input type="file"
+              @change="getFileName"
+              class="form-control-file"
+              id="profile_photo_input"
+              aria-label="Post_Photo"
+              style="background-color: rgb(62, 208, 221);
+              height: auto; width: 220px;">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" @click="onSubmit">Submit</button>
+          </form>
+    </div>
   </div>
 </template>
 
@@ -149,23 +153,29 @@ export default {
 </script>
 
 <style>
-#profile {
-position: fixed;
-font-size: 10px;
-top: 15%;
-left: 5%;
-padding: 15px;
-background-color: lavender;
+.Profile-details{
+  background-image: url("../../../static/images/login-back.png");
+  background-size: cover;
+  background-position: center;
+  background-size: cover;
 }
-
-#posts {
-  padding: 10px;
-  margin-top: 6%;
-  margin-left: 35%;
+.Edit-form{
+height:650px;
+width: 800px;
+border-radius: 10px;
+border-radius: 5px;
+padding: 2rem;
+box-shadow: 0px 0px 50px rgba(21, 21, 21, 0.5);
 }
-
-.card{
-  margin-bottom: 12px;
+.Edit-profile{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+backdrop-filter: blur(10px);
+width:100%;
+height:100%;
+padding: 2rem;
+color:black;
 }
-
 </style>

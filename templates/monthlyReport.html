@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS @page rule</title>
+<style type="text/css">
+ 
+ @page {
+
+            @top-left {
+                background: #7851a9;
+                content: counter(page);
+                height: 1cm;
+                text-align: center;
+                width: 1cm;
+            }
+
+            @top-center {
+                background: #7851a9;
+                content: '';
+                display: block;
+                height: .05cm;
+                opacity: .5;
+                width: 100%;
+            }
+
+            @top-right {
+                content: string(heading);
+                font-size: 9pt;
+                height: 1cm;
+                vertical-align: middle;
+                width: 100%;
+            }
+        }
+
+            body {
+                font-family: 'Times New Roman', serif;
+                background-color: white;
+            }
+
+            article {
+            width: 90%;
+            page-break-after: always;
+            }
+
+            .center {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            h1 {
+                font-size: 40px;
+                font-style: normal;
+            }
+            h3 {
+                font-style: normal;
+                color: #143d59;
+            }
+            h4 {
+                font-style: normal;
+                color: purple;
+            }
+            footer {
+                margin-top: 50%;
+                width: 90%;
+                color: white;
+                background-color: #4169e1;
+                padding: 10px;
+                text-align: right;
+
+            }
+            .circle {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                background-image: url("images/{{user.profile_photo}}");
+                background-size: cover;
+                background-position: center;
+                border: 5px solid #143d59;
+                margin-top: 15%;
+                margin-left: 10%;
+            }
+            .square {
+            position: relative;
+            height: 200px;
+            width: 300px;
+            background-color: #f4b41a;
+            color: #143d59;
+            z-index: -1;
+            margin-top: -10%;
+            margin-left: 35%;
+            text-align: center;
+            line-height: 1.5;
+            display: inline-block;
+            vertical-align: middle;
+            }
+            
+        </style>  
+    </head>
+    <body>
+        <article id="cover">
+            <div class="circle"></div>
+            <div class="square">
+               <h1>{{user['name']}}'s Monthly Report</h1>
+            </div>
+            <br><br>
+            <h1 style="color: #143d59; text-align: center;">For the month of {{month}}</h1>
+            <footer>
+                {{user['username']}} | {{user['email']}}
+            </footer>
+        </article>
+        <article id="Follow">
+            <h2>Follow Summary</h2>
+            <h4>Followers gained this month: {{followers_gained}}</h4>
+            <h4>People followed this month: {{followings_gained}}</h4>
+            <img src="graphs/{{user.username}}_follow_history.png" alt="Follow History" width="400" height="400" class="center">
+            <footer>
+                {{user['username']}} | {{user['email']}}
+            </footer>
+        </article>
+        <article id="Post">
+            <h2>Posts Summary</h2>
+            <h4>Total Posts: {{total_posts}}</h4>
+            <h4>Most Liked Post: {{crowns.most_engaged}}</h4>
+            <h4>Most Commented On Post: {{crowns.most_commented}}</h4>
+            <h4>Most Engaged Post: {{crowns.most_engaged}}</h4>
+            <img src="graphs/{{user.username}}_engagement.png" alt="Engagement" width="400" height="400" class="center">
+            <footer>
+                {{user['username']}} | {{user['email']}}
+            </footer>
+        </article>
+    </body>
+</html>

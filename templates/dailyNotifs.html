@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <p>Dear {{user['name']}},</p>
+        <p>Here's your daily activity summary!!</p>
+        <br>
+        {% if posts != [] %}
+            <h3>New posts from your followings:</h3>
+            {% for post in posts %}
+                <p><strong>{{post['username']}}</strong> posted:</p>
+                <p><strong><a href="http://localhost:8081/posts/{{post.post_id}}">{{post.title}}</a></strong></p>
+            {% endfor %}
+        {% endif %}
+        <br><br>
+        {% if comments != [] %}
+            <h3>New comments on your posts:</h3>
+            {% for comment in comments %}
+                <p><strong>{{comment['commenter']}}</strong> commented:</p>
+                <p>"{{comment['body']}}"</p>
+            {% endfor %}
+        {% endif %}
+        <br>
+        <p>Happy Blogging!!</p>
+        <p>Regards,</p>
+        <p>BlogLite Team</p>
+    </body>
+</html>
